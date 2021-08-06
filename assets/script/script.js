@@ -36,19 +36,19 @@ if (passLength > 128) {
 
 // create 4 different conditional statement to store if user password is going to use special chars, numbers, lower and upper
 if (confirm("Would you like to use Special Characters?")) {
-  passSpec = speacialChars
+  var passSpec = speacialChars
 }
 
 if (confirm("Would you like to use Numbers?")) {
-  passNum = numericalChars
+  var passNum = numericalChars
 }
 
 if (confirm("Would you like to use Lowercase letters?")) {
-  passLower = lowerCase
+  var passLower = lowerCase
 }
 
 if (confirm("Would you like to use Uppercase letters?")) {
-  passUpper = upperCase
+  var passUpper = upperCase
 }
 // create a conditional statement to check if the user used some type of character
 if( !(speacialChars == true || numericalChars == true || lowerCase == true || upperCase == true)) {
