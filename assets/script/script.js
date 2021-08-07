@@ -82,45 +82,16 @@ function generatePassword() {
   console.log(userOptions);
   //create a variable to store password
   var results = []
-  // array to store the types of characters to include in our password
 
-  //array to contain at least one of each chosen type of characters to make sure at least one of every character is being used (validation)
-  // var guarChar = []
-
+  // create a for loop to pluck out random options object and grabing random characters from the array of possible characters and concat them into the results variable
   for (var i = 0; i < userOptions.passLength; i++) {
     var digit = userOptions.outputArray[randomGen()];
     results.push(digit);
   }
-  // create conditional statements that add the array of characters into an array of possible characters based on our users input
-  // need to push our new random characters to the guarenteed characters (look up .concat())
 
-  // if (userOptions.specialCharacters){
-  // take chars and concat
-  // take characters and push(randomizationfunction(specialCharacter)) (After We Randomize)
+  // take the result look up join() 
   return results.join("");
 }
-
-// create conditional statements that add the array of characters into an array of possible characters based on our users input
-// need to push our new random characters to the guarenteed characters (look up .concat())
-
-// create conditional statements that add the array of characters into an array of possible characters based on our users input
-// need to push our new random characters to the guarenteed characters (look up .concat())
-
-
-// create conditional statements that add the array of characters into an array of possible characters based on our users input
-// need to push our new random characters to the guarenteed characters (look up .concat())
-
-
-// create a for loop to pluck out random options object and grabing random characters from the array of possible characters and concat them into the results variable
-
-
-// create another for loop to guarantee at least one character from each possible characters in the results
-
-// take the result look up join() 
-
-
-
-
 var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
