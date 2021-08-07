@@ -5,100 +5,99 @@ var speacialChars = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '?', '/',
 // numerical
 var numericalChars = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
 // lowerCase (look up .split())
-var lowerCase = "abcdefghijklmnopqrstuvwxyz".split('o');
+var lowerCase = "abcdefghijklmnopqrstuvwxyz".split('');
 // upperCase (look up .split())
-var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('o');
+var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
+var outputArray = [];
 
 // Create a function that prompts the user for the password options
 function getUserOptions() {
-var userInput = prompt("Please enter how long you would like the password to be.")
+  var userInput = prompt("Please enter how long you would like the password to be.")
 
-// create a variable to store the length of password from the user input (look up parseInt())
+  // create a variable to store the length of password from the user input (look up parseInt())
 
-var passLength = parseInt(userInput);
+  var passLength = parseInt(userInput);
 
-// create a conditional statement to check if the length is an actual number
-if (typeof passLength != 'number') {
-  alert("Please enter a number value")
-  return;
-}
-// create a conditional to check if password length is at least 8 char long
-if (passLength < 8) {
-  alert("The password must be 8 digits or more.")
-  return;
-}
+  // create a conditional statement to check if the length is an actual number
+  if (isNaN(passLength)) {
+    alert("Please enter a number value")
+    return getUserOptions();
+  }
+  // create a conditional to check if password length is at least 8 char long
+  if (passLength < 8) {
+    alert("The password must be 8 digits or more.")
+    return getUserOptions();
+  }
 
-// create a conditional to check if password length is lower than 128 chars
-if (passLength > 128) {
-  alert("The password must be 128 digits or less.")
-  return;
-}
+  // create a conditional to check if password length is lower than 128 chars
+  if (passLength > 128) {
+    alert("The password must be 128 digits or less.")
+    return getUserOptions();
+  }
 
-// create 4 different conditional statement to store if user password is going to use special chars, numbers, lower and upper
-if (confirm("Would you like to use Special Characters?")) {
-  var passSpec = speacialChars
-}
+  // create 4 different conditional statement to store if user password is going to use special chars, numbers, lower and upper
+  if (confirm("Would you like to use Special Characters?")) {
+    outputArray = outputArray.concat(speacialChars);
+  }
 
-if (confirm("Would you like to use Numbers?")) {
-  var passNum = numericalChars
-}
+  if (confirm("Would you like to use Numbers?")) {
+    outputArray = outputArray.concat(numericalChars);
+  }
 
-if (confirm("Would you like to use Lowercase letters?")) {
-  var passLower = lowerCase
-}
+  if (confirm("Would you like to use Lowercase letters?")) {
+    outputArray = outputArray.concat(lowerCase);
+  }
 
-if (confirm("Would you like to use Uppercase letters?")) {
-  var passUpper = upperCase
-}
-// create a conditional statement to check if the user used some type of character
-if( !(speacialChars == true || numericalChars == true || lowerCase == true || upperCase == true)) {
-  alert("Plese choose at least one Character Choice");
-  return;
-}
+  if (confirm("Would you like to use Uppercase letters?")) {
+    outputArray = outputArray.concat(upperCase);
+  }
+  // create a conditional statement to check if the user used some type of character
+  if (outputArray.length === 0) {
+    alert("Please choose at least one Character Choice");
+    return getUserOptions();
+  }
 
-// Create a variable to store the user input
-var usersData = userInput
+  // create an object to store the user input
+  var passOptions = {
+    passLength,
+    outputArray
+  };
 
-// create an object to store the user input
- var passOptions = {
-   passLength: passLength,
-   speacialChars:  passSpec,
-   numericalChars: passNum,
-   lowerCase: passLower,
-   upperCase: passUpper,
- };
-
- //return our passOptions
-  passOptions
-  return;
+  //return our passOptions
+  return passOptions;
 }
 
 
 //Function for getting a random element for an array
 //check out math.random
 function randomGen() {
-var random = Math.floor(Math.random() * speacialChars.length)
-
+  var random = Math.floor(Math.random() * outputArray.length)
+  return random;
 }
 
-
 //function to generate password with our user input
-function generatePassword(){
+function generatePassword() {
   // create a variable and call our function so we can use data from previous function
-var userOptionss = getUserOptions();
+  var userOptions = getUserOptions();
+  console.log(userOptions);
+  //create a variable to store password
+  var results = []
+  // array to store the types of characters to include in our password
 
-//create a variable to store password
-var results = []
-// array to store the types of characters to include in our password
-var userPosChars = []
-//array to contain at least one of each chosen type of characters to make sure at least one of every character is being used (validation)
-var guarChar = []
-// create conditional statements that add the array of characters into an array of possible characters based on our users input
-// need to push our new random characters to the guarenteed characters (look up .concat())
+  //array to contain at least one of each chosen type of characters to make sure at least one of every character is being used (validation)
+  // var guarChar = []
 
-// if (userOptions.specialCharacters){
-    // take chars and concat
-    // take characters and push(randomizationfunction(specialCharacter)) (After We Randomize)
+  for (var i = 0; i < userOptions.passLength; i++) {
+    var digit = userOptions.outputArray[randomGen()];
+    results.push(digit);
+  }
+  // create conditional statements that add the array of characters into an array of possible characters based on our users input
+  // need to push our new random characters to the guarenteed characters (look up .concat())
+
+  // if (userOptions.specialCharacters){
+  // take chars and concat
+  // take characters and push(randomizationfunction(specialCharacter)) (After We Randomize)
+  return results.join("");
 }
 
 // create conditional statements that add the array of characters into an array of possible characters based on our users input
@@ -127,6 +126,7 @@ var generateBtn = document.querySelector("#generate");
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
+  console.log(password);
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
